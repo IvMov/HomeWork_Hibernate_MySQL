@@ -19,5 +19,6 @@
             user
         </property>
         <mapping class="entity.Car"/>
+        <mapping class="entity.Client"/>
     </session-factory>
 </hibernate-configuration>

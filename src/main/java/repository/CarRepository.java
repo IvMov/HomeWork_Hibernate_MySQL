@@ -3,6 +3,7 @@ package repository;
 import entity.Car;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,23 @@ public class CarRepository {
             }
 
         }
-
         return cars;
+    }
+
+    public void updateCar(Car changedCar){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Car car = session.find(Car.class, changedCar.getId());
+        car.setModel(changedCar.getModel());
+        car.setBrand(changedCar.getBrand());
+        car.setNatNumber(changedCar.getNatNumber());
+        car.setMadeYear(changedCar.getMadeYear());
+
+        session.save(car);
+
+        transaction.commit();
+        session.close();
     }
 
 }
